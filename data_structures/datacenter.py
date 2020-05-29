@@ -1,4 +1,5 @@
 from .cluster import Cluster
+import re
 
 class Datacenter:
     def __init__(self, name, cluster_dict):
@@ -22,5 +23,11 @@ class Datacenter:
         """
         Removes invalid objects from the clusters list.
         """
-
-        pass
+        _clusters = self.clusters.copy()
+        for cluster in self.clusters:
+            if not re.match( 
+                '^%s-[\\d]{1,3}$' % self.name[:3].upper(),
+                cluster.name
+            ):
+                _clusters.remove(cluster)
+        self.clusters = _clusters
