@@ -23,7 +23,7 @@ class Datacenter:
         """
         Removes invalid objects from the clusters list.
         """
-        _clusters = self.clusters.copy()
+        _clusters = list(self.clusters)
         for cluster in self.clusters:
             if not re.match( 
                 '^%s-[\\d]{1,3}$' % self.name[:3].upper(),

@@ -22,8 +22,20 @@ class NetworkCollection:
         """
         Removes invalid objects from the entries list.
         """
+        _entries = self.entries
+        for entry in self.entries:
+            valid = True
+            try:
+                addr = ipaddress.ip_address(entry.address)
+            except ValueError:
+                valid = False
+            else:
+                if addr not in self.ipv4_network:
+                    valid = False
 
-        pass
+            if not valid:
+                _entries.remove(entry)
+        self.entries = _entries
 
     def sort_records(self):
         """
