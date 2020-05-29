@@ -1,4 +1,6 @@
 from data_structures.datacenter import Datacenter
+import time
+from requests import get
 
 
 URL = "http://www.mocky.io/v2/5e539b332e00007c002dacbe"
@@ -16,7 +18,13 @@ def get_data(url, max_retries=5, delay_between_retries=1):
     Returns:
         data (dict)
     """
-    pass  # the rest of your logic here
+    for retry in range(max_retries):
+        try:
+            response = get(url)
+        except:
+            time.sleep(delay_between_retries)
+        else:
+            return response.json()
 
 
 def main():
