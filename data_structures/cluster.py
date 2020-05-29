@@ -1,3 +1,5 @@
+from .network_collection import NetworkCollection
+
 class Cluster:
     def __init__(self, name, network_dict, security_level):
         """
@@ -7,5 +9,9 @@ class Cluster:
         self.security_level -> int
         self.networks -> list(NetworkCollection)
         """
-
-        pass
+        self.name = name
+        self.security_level = security_level
+        self.networks = [
+            NetworkCollection(ipv4_network, entries)
+            for ipv4_network, entries in network_dict.items()
+        ]
