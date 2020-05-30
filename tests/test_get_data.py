@@ -1,15 +1,10 @@
-import unittest
 import json
+import unittest
+
 from main import get_data
 
 
 class GetDataTest(unittest.TestCase):
-
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
 
     def test_get_data(self):
         """ Test that compares the retrieved data with the expected data that's stored locally """
@@ -17,6 +12,10 @@ class GetDataTest(unittest.TestCase):
         with open('response.json') as fin:
             local_data = json.load(fin)
         self.assertDictEqual(remote_data, local_data)
+
+    def test_get_data_fail(self):
+        """ Tests that a failed call to get data returns a None value. """
+        self.assertIsNone(get_data('this_must_fail', 5, 0))
 
 
 if __name__ == '__main__':

@@ -1,17 +1,17 @@
-import unittest
-from data_structures.datacenter import Datacenter
 import json
+import unittest
 
-class NetworkCollectionTest(unittest.TestCase):
+from _base_test_case_response_load import BaseTestCaseResponseLoad
+
+
+class NetworkCollectionTest(BaseTestCaseResponseLoad):
 
     def setUp(self):
-        with open('response.json') as fin:
-            data = json.load(fin)
-
-        dc = Datacenter('Berlin', data['Berlin'])
-        self.nc = dc.clusters[0].networks[0]
+        super().setUp()
+        self.nc = self.dc.clusters[0].networks[0]
 
     def test_invalid_records(self):
+        """ Tests that the removal of invalid records is successful. """
         self.assertEqual(len(self.nc.entries), 10)
         self.nc.remove_invalid_records()
         self.assertEqual(len(self.nc.entries), 6)
